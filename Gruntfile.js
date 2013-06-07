@@ -80,7 +80,7 @@ module.exports = function(grunt) {
           npmDependencies: {
             underscore: '../rendr/node_modules/underscore/underscore.js',
             backbone: '../rendr/node_modules/backbone/backbone.js',
-            "dustjs-linkedin": '../rendr/node_modules/dustjs-linkedin/dist/dust-core-1.2.4.js',
+            "dustjs-linkedin": '../rendr-dustjs/node_modules/dustjs-linkedin/dist/dust-core-1.2.4.js',
             async: '../rendr/node_modules/async/lib/async.js',
             "rendr-dustjs": "index.js"
           },
