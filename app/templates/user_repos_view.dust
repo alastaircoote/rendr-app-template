@@ -8,12 +8,12 @@
     </tr>
   </thead>
   <tbody>
-  {{#each models}}
+  {#models}
     <tr>
-      <td><a href="/repos/{{full_name}}">{{name}}</a></td>
-      <td>{{watchers_count}}</td>
-      <td>{{forks_count}}</td>
+      <td><a href="/repos/{full_name}">{name}</a></td>
+      <td>{watchers_count}</td>
+      <td>{forks_count}</td>
     </tr>
-  {{/each}}
+  {/models}
   </tbody>
 </table>
