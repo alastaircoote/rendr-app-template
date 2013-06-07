@@ -28,23 +28,22 @@ module.exports = function(grunt) {
       }
     },
 
-    handlebars: {
+    dust: {
       compile: {
         options: {
-          namespace: false,
-          commonjs: true,
-          processName: function(filename) {
-            return filename.replace('app/templates/', '').replace('.hbs', '');
-          }
+          node:true,
+          amd:false,
+          runtime:false
         },
-        src: "app/templates/*.hbs",
-        dest: "app/templates/compiledTemplates.js",
+        files: {
+          "app/templates/compiledTemplates.js": "app/templates/*.dust"
+        }/*,
         filter: function(filepath) {
           var filename = path.basename(filepath);
           // Exclude files that begin with '__' from being sent to the client,
           // i.e. __layout.hbs.
           return filename.slice(0, 2) !== '__';
-        }
+        }*/
       }
     },
 
@@ -57,8 +56,8 @@ module.exports = function(grunt) {
         }
       },
       templates: {
-        files: 'app/**/*.hbs',
-        tasks: ['handlebars'],
+        files: 'app/**/*.dust',
+        tasks: ['dust'],
         options: {
           interrupt: true
         }
@@ -81,8 +80,9 @@ module.exports = function(grunt) {
           npmDependencies: {
             underscore: '../rendr/node_modules/underscore/underscore.js',
             backbone: '../rendr/node_modules/backbone/backbone.js',
-            handlebars: '../rendr/node_modules/handlebars/dist/handlebars.runtime.js',
-            async: '../rendr/node_modules/async/lib/async.js'
+            "dustjs-linkedin": '../rendr/node_modules/dustjs-linkedin/dist/dust-core-1.2.4.js',
+            async: '../rendr/node_modules/async/lib/async.js',
+            "rendr-dustjs": "index.js"
           },
           aliases: [
             {from: rendrDir + '/client', to: 'rendr/client'},
@@ -103,11 +103,11 @@ module.exports = function(grunt) {
 
   grunt.loadNpmTasks('grunt-contrib-stylus');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-contrib-handlebars');
+  grunt.loadNpmTasks('grunt-dust');
   grunt.loadNpmTasks('grunt-bg-shell');
   grunt.loadNpmTasks('grunt-rendr-stitch');
 
-  grunt.registerTask('compile', ['handlebars', 'rendr_stitch', 'stylus']);
+  grunt.registerTask('compile', ['dust', 'rendr_stitch', 'stylus']);
 
   // Run the server and watch for file changes
   grunt.registerTask('server', ['bgShell:runNode', 'compile', 'watch']);

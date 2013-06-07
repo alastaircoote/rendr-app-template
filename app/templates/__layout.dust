@@ -26,14 +26,14 @@
     </div>
 
     <section id=content class=container>
-      {{{body}}}
+      {body|s}
     </section>
 
     <script src="/mergedAssets.js"></script>
     <script>
     (function() {
-      var App = window.App = new (require('app/app'))({{json appData}});
-      App.bootstrapData({{json bootstrappedData}});
+      var App = window.App = new (require('app/app'))({appData|js|s});
+      App.bootstrapData({bootstrappedData|js|s});
       App.start();
     })();
     </script>
